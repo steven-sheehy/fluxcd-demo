@@ -1,3 +1,4 @@
+---
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
@@ -24,5 +25,5 @@ spec:
   values:
     image:
       repository: ssheehy/fluxcd-demo
-      tag: latest
+      tag: master-00b7cc2078a1d8cdde2ba2fa6a33d589f2429c61
 
