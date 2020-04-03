@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/hello")
 @Slf4j
 public class DemoController {
+
     @GetMapping
     public String hello(@RequestParam String message) {
         log.info("Saw hello {}", message);
