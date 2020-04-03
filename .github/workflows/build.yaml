@@ -23,7 +23,7 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         path: ~/.m2
         restore-keys: ${{ runner.os }}-m2
-    - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=latest,master-$(git rev-parse --short=4 HEAD)
+    - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=latest,master-${GITHUB_SHA}
     - run: mkdir artifacts && cp target/*.jar artifacts
     - uses: actions/upload-artifact@v1
       with:
