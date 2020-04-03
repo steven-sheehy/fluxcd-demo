@@ -1,0 +1,28 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/chart-image: "glob:master-*"
+  name: demo
+  namespace: dev
+spec:
+  chart:
+    git: https://github.com/steven-sheehy/fluxcd-demo.git
+    path: chart/fluxcd-demo
+    ref: master
+  forceUpgrade: true
+  releaseName: fluxcd
+  resetValues: true
+  rollback:
+    enable: true
+    force: true
+    timeout: 500
+    wait: true
+  timeout: 500
+  wait: true
+  values:
+    image:
+      repository: ssheehy/fluxcd-demo
+      tag: latest
+
