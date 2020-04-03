@@ -13,7 +13,7 @@ public class DemoController {
 
     @GetMapping
     public String hello(@RequestParam String message) {
-        log.info("Saw hello {}", message);
+        log.info("Saw hello message {}", message);
         return "Hello " + message;
     }
 }
