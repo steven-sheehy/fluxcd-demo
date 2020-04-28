@@ -2,9 +2,6 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/chart-image: "glob:master-*"
   name: demo
   namespace: dev
 spec:
@@ -25,5 +22,4 @@ spec:
   values:
     image:
       repository: ssheehy/fluxcd-demo
-      tag: master-00b7cc2078a1d8cdde2ba2fa6a33d589f2429c61
-
+      tag: master-b102e919470a6d3b6f0d50329b47507f8ca394df
