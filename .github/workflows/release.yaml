@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags-ignore:
+    - "v*-alpha*"
+    - "v*-beta*"
+    - "v*-rc*"
+
+jobs:
+  build:
+    env:
+      MAVEN_CLI_OPTS: --batch-mode --no-transfer-progress --show-version -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Cache Maven packages
+      uses: actions/cache@v1
+      with:
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        path: ~/.m2
+        restore-keys: ${{ runner.os }}-m2
+    - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=latest,${GITHUB_REF}
+  helmrelease:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: deploy
+    - name: Update testnet tag
+      run: |-
+        sed -i "s/tag: .*/tag: ${GITHUB_REF}/" ./testnet/helmrelease.yaml
+      shell: bash
+    - uses: stefanzweifel/git-auto-commit-action@v4.1.6
+      with:
+        commit_message: "Update testnet HelmRelease to ${GITHUB_REF}"
