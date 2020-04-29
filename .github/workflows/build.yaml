@@ -29,11 +29,17 @@ jobs:
       with:
         name: Package
         path: artifacts
+  deploy-dev:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: deploy
     - name: Update dev tag
       run: |-
-        sed -i "s/tag: .*/tag: master-${GITHUB_SHA}/" environment/dev/helmrelease.yaml
+        sed -i "s/tag: .*/tag: master-${GITHUB_SHA}/" ./environment/dev/helmrelease.yaml
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4.1.6
       with:
-        branch: deploy
         commit_message: Update dev HelmRelease to master-${GITHUB_SHA}
