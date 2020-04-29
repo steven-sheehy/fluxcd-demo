@@ -72,9 +72,6 @@
 				<configuration>
 					<to>
 						<image>${image.repository}/${project.artifactId}</image>
-						<tags>
-							<tag>latest</tag>
-						</tags>
 					</to>
 				</configuration>
 				<executions>

@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: ssheehy/fluxcd-demo
   pullPolicy: IfNotPresent
-  tag: v0.1.0-alpha1
+  tag: v0.1.0-alpha2
 
 imagePullSecrets: []
 nameOverride: ""

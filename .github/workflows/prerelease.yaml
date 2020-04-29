@@ -7,6 +7,10 @@ on:
     - "v*-beta*"
     - "v*-rc*"
 
+env:
+  TAG: "${GITHUB_REF##*/}"
+  DOCKER_TAG: "${TAG/v/}"
+
 jobs:
   build:
     env:
@@ -24,7 +28,7 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         path: ~/.m2
         restore-keys: ${{ runner.os }}-m2
-    - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=latest,${GITHUB_REF}
+    - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=latest,${DOCKER_TAG}
   helmrelease:
     needs: build
     runs-on: ubuntu-latest
@@ -34,8 +38,8 @@ jobs:
         ref: deploy
     - name: Update staging tag
       run: |-
-        sed -i "s/tag: .*/tag: ${GITHUB_REF}/" ./staging/helmrelease.yaml
+        sed -i "s/tag: .*/tag: ${DOCKER_TAG}/" ./staging/helmrelease.yaml
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4.1.6
       with:
-        commit_message: "Update staging HelmRelease to ${GITHUB_REF}"
+        commit_message: "Update staging HelmRelease to ${DOCKER_TAG}"
