@@ -38,7 +38,7 @@ jobs:
         ref: deploy
     - name: Update testnet tag
       run: |-
-        sed -i "s/tag: .*/tag: ${DOCKER_TAG}/" ./testnet/helmrelease.yaml
+        sed -i "s/ref: .*/ref: ${DOCKER_TAG}/" ./testnet/helmrelease.yaml
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4.1.6
       with:
