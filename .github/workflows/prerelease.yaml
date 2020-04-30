@@ -37,8 +37,8 @@ jobs:
         ref: deploy
     - name: Update staging tag
       run: |-
-        IMAGE_TAG=$(echo "${GITHUB_REF##*/}" | cut -d'v' -f2)
-        sed -i "s/ref: .*/ref: ${IMAGE_TAG}/" ./staging/helmrelease.yaml
+        TAG="${GITHUB_REF##*/}"
+        sed -i "s/ref: .*/ref: ${TAG}/" ./staging/helmrelease.yaml
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4.1.6
       with:

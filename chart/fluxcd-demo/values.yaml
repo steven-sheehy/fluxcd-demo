@@ -7,7 +7,7 @@ replicaCount: 2
 image:
   repository: ssheehy/fluxcd-demo
   pullPolicy: IfNotPresent
-  tag: v0.1.0-alpha6
+  tag: 0.1.0-alpha7
 
 imagePullSecrets: []
 nameOverride: ""
@@ -34,7 +34,7 @@ securityContext:
   runAsUser: 1000
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
 
 ingress:

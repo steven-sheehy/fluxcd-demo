@@ -72,7 +72,6 @@
 				<configuration>
 					<to>
 						<image>${image.repository}/${project.artifactId}</image>
-						<tags/>
 					</to>
 				</configuration>
 				<executions>
