@@ -1,0 +1,16 @@
+clusterRole:
+  create: true
+git:
+  branch: deploy
+  pollInterval: 1m
+  readonly: true
+  url: "https://github.com/steven-sheehy/fluxcd-demo.git"
+memcached:
+  enabled: false
+registry:
+  disableScanning: true
+syncGarbageCollection:
+  enabled: true
+sync:
+  interval: 1m
+#allowedNamespaces: [dev, staging, testnet, mainnet]
