@@ -7,10 +7,6 @@ on:
     - "v*-beta*"
     - "v*-rc*"
 
-env:
-  TAG: "${GITHUB_REF##*/}"
-  DOCKER_TAG: "${GITHUB_REF/v/}"
-
 jobs:
   build:
     env:
@@ -28,7 +24,12 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         path: ~/.m2
         restore-keys: ${{ runner.os }}-m2
-    - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=latest,${TAG}
+    - name: Set image tag
+      run: |-
+        IMAGE_TAG=$(echo "${GITHUB_REF##*/}" | cut -d'v' -f2)
+        echo "::set-env name=IMAGE_TAG::${IMAGE_TAG}"
+      shell: bash
+    - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=latest,${IMAGE_TAG}
   helmrelease:
     needs: build
     runs-on: ubuntu-latest
@@ -38,10 +39,9 @@ jobs:
         ref: deploy
     - name: Update staging tag
       run: |-
-        echo "TAG: ${TAG}"
-        echo "DOCKER_TAG: ${DOCKER_TAG}"
-        sed -i "s/ref: .*/ref: ${TAG}/" ./staging/helmrelease.yaml
+        echo "IMAGE_TAG: ${IMAGE_TAG}"
+        sed -i "s/ref: .*/ref: ${IMAGE_TAG}/" ./staging/helmrelease.yaml
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4.1.6
       with:
-        commit_message: "Update staging HelmRelease to ${TAG}"
+        commit_message: "Update staging HelmRelease to ${IMAGE_TAG}"
