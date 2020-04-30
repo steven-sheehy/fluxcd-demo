@@ -22,4 +22,4 @@ spec:
   values:
     image:
       repository: ssheehy/fluxcd-demo
-      tag: master-3d833eadba2dec64ec7c3645a830bed6995d8289
+      tag: master-7ff3196037c745ab6303adfc2178d1055906fc8c
