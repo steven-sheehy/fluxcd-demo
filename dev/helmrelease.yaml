@@ -8,7 +8,7 @@ spec:
   chart:
     git: https://github.com/steven-sheehy/fluxcd-demo.git
     path: chart/fluxcd-demo
-    ref: master
+    ref: 23ac117745998a901305c71d91d5651fbc8f4815
   forceUpgrade: true
   releaseName: fluxcd
   resetValues: true
@@ -22,4 +22,4 @@ spec:
   values:
     image:
       repository: ssheehy/fluxcd-demo
-      tag: master-9aada55585a8d3ec0dd8c996cf76dffcd1ffa31d
+      tag: master-23ac117745998a901305c71d91d5651fbc8f4815
