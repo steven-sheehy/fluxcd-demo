@@ -3,3 +3,6 @@ git:
   pollInterval: 1m
 helm:
   versions: v3
+logReleaseDiffs: true
+updateChartDeps: false
+
