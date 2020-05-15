@@ -23,7 +23,7 @@ jobs:
         path: ~/.m2
         restore-keys: ${{ runner.os }}-m2
     - run: ./mvnw ${MAVEN_CLI_OPTS} clean install -Djib.to.auth.username=${{ secrets.REGISTRY_USERNAME }} -Djib.to.auth.password=${{ secrets.REGISTRY_PASSWORD }} -Djib.to.tags=master,master-${GITHUB_SHA}
-  helmrelease:
+  helm:
     needs: build
     runs-on: ubuntu-latest
     steps:
