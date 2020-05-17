@@ -11,7 +11,7 @@ spec:
     ref: v0.1.0-alpha7
   forceUpgrade: true
   releaseName: fluxcd
-  resetValues: true
+  resetValues: false
   rollback:
     enable: true
     force: true
