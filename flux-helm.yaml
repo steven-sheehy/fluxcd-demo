@@ -4,5 +4,4 @@ git:
 helm:
   versions: v3
 logReleaseDiffs: true
-updateChartDeps: false
 
