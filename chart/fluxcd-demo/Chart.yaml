@@ -24,3 +24,6 @@ dependencies:
 - name: demo-child
   version: 0.1.0
   repository: file://../demo-child
+- name: grafana
+  version: 5.0.25
+  repository: https://kubernetes-charts.storage.googleapis.com/
