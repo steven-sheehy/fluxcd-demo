@@ -9,7 +9,6 @@ spec:
     git: https://github.com/steven-sheehy/fluxcd-demo.git
     path: chart/fluxcd-demo
     ref: v0.1.1-alpha1
-  releaseName: fluxcd
   rollback:
     enable: true
     force: true

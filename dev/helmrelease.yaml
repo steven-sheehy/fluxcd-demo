@@ -9,7 +9,6 @@ spec:
     git: https://github.com/steven-sheehy/fluxcd-demo.git
     path: chart/fluxcd-demo
     ref: 73955feb30ddbda1d93ff492439fe26d4580cc6d
-  releaseName: fluxcd
   rollback:
     enable: true
     force: true
@@ -21,3 +20,4 @@ spec:
     image:
       repository: ssheehy/fluxcd-demo
       tag: master-73955feb30ddbda1d93ff492439fe26d4580cc6d
+    replicaCount: 1
