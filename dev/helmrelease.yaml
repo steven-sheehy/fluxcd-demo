@@ -17,7 +17,9 @@ spec:
   timeout: 500
   wait: true
   values:
+    demo-child:
+      image:
+        tag: master-73955feb30ddbda1d93ff492439fe26d4580cc6d
     image:
       repository: ssheehy/fluxcd-demo
       tag: master-73955feb30ddbda1d93ff492439fe26d4580cc6d
-    replicaCount: 1
